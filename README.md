@@ -4,6 +4,10 @@
 
 ## 版本記錄
 
++ ### v0.1.4 (2023-12-13)
++ - 更新 AI 助教頭像
++ - 優化圖片資源
++ 
 ### v0.1.3 (2023-12-13)
 - 關聯教材文件到 Assistant
 - 優化 AI 回應內容
@@ -57,6 +61,36 @@ VITE_COURSE_NAME=課程名稱
 VITE_ASSISTANT_NAME=AI助教名稱
 VITE_MAX_CHAT_WIDTH=820
 VITE_LOGIN_PASSWORD=your_password
+```
+
+3. 啟動開發服務器：
+```bash
+npm run dev
+```
+
+## 部署
+
+### Vercel 部署
+
+1. Fork 此倉庫
+2. 在 Vercel 中導入專案
+3. 設置環境變數
+4. 部署
+
+1. 安裝依賴：
+```bash
+npm install
+```
+
+2. 設置環境變數：
+將 `.env.example` 複製為 `.env` 並設置以下變數���
+```env
+VITE_OPENAI_API_KEY=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
+VITE_ASSISTANT_ID=asst_kee49octQQlwut1UgSH3ZZeE
+VITE_COURSE_NAME=藝遊｢雕｣與｢塑｣的世界
+VITE_ASSISTANT_NAME=AI雕塑小助教
+VITE_MAX_CHAT_WIDTH=820
+VITE_LOGIN_PASSWORD=888888
 ```
 
 3. 啟動開發服務器：
