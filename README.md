@@ -44,3 +44,22 @@
 ## 開發環境設置
 
 1. 安裝依賴：
+```bash
+npm install
+```
+
+2. 設置環境變數：
+將 `.env.example` 複製為 `.env` 並設置以下變數：
+```env
+VITE_OPENAI_API_KEY=your_api_key
+VITE_ASSISTANT_ID=your_assistant_id
+VITE_COURSE_NAME=課程名稱
+VITE_ASSISTANT_NAME=AI助教名稱
+VITE_MAX_CHAT_WIDTH=820
+VITE_LOGIN_PASSWORD=your_password
+```
+
+3. 啟動開發服務器：
+```bash
+npm run dev
+```
