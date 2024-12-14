@@ -21,6 +21,8 @@ export const Message: React.FC<MessageProps> = ({ message, isTyping = false }) =
       <ReactMarkdown
         skipHtml={true}
         linkTarget="_blank"
+        transformLinkUri={null}
+        unwrapDisallowed={true}
         components={{
           p: ({ children }) => <Typography paragraph>{children}</Typography>,
           h1: ({ children }) => <Typography variant="h1">{children}</Typography>,
@@ -29,6 +31,7 @@ export const Message: React.FC<MessageProps> = ({ message, isTyping = false }) =
           h4: ({ children }) => <Typography variant="h4">{children}</Typography>,
           h5: ({ children }) => <Typography variant="h5">{children}</Typography>,
           h6: ({ children }) => <Typography variant="h6">{children}</Typography>,
+          a: ({ children }) => <Typography component="span">{children}</Typography>,
           strong: ({ children }) => (
             <Typography component="strong" sx={{ fontWeight: 'bold' }}>
               {children}
