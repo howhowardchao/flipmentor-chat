@@ -1,9 +1,6 @@
 import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import 'katex/dist/katex.min.css';
 import { TypewriterText } from './TypewriterText';
 import { Message as MessageType } from '@/shared/types/chat';
 
@@ -22,8 +19,6 @@ export const Message: React.FC<MessageProps> = ({ message, isTyping = false }) =
 
     return (
       <ReactMarkdown
-        remarkPlugins={[remarkMath]}
-        rehypePlugins={[rehypeKatex]}
         skipHtml={true}
         linkTarget="_blank"
         components={{
