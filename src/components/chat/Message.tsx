@@ -3,6 +3,7 @@ import { Box, Paper, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 import { TypewriterText } from './TypewriterText';
 import { Message as MessageType } from '@/shared/types/chat';
 
@@ -23,6 +24,8 @@ export const Message: React.FC<MessageProps> = ({ message, isTyping = false }) =
       <ReactMarkdown
         remarkPlugins={[remarkMath]}
         rehypePlugins={[rehypeKatex]}
+        skipHtml={true}
+        linkTarget="_blank"
         components={{
           p: ({ children }) => <Typography paragraph>{children}</Typography>,
           h1: ({ children }) => <Typography variant="h1">{children}</Typography>,
@@ -31,6 +34,16 @@ export const Message: React.FC<MessageProps> = ({ message, isTyping = false }) =
           h4: ({ children }) => <Typography variant="h4">{children}</Typography>,
           h5: ({ children }) => <Typography variant="h5">{children}</Typography>,
           h6: ({ children }) => <Typography variant="h6">{children}</Typography>,
+          strong: ({ children }) => (
+            <Typography component="strong" sx={{ fontWeight: 'bold' }}>
+              {children}
+            </Typography>
+          ),
+          em: ({ children }) => (
+            <Typography component="em" sx={{ fontStyle: 'italic' }}>
+              {children}
+            </Typography>
+          ),
           ul: ({ children }) => <Box component="ul" sx={{ pl: 2 }}>{children}</Box>,
           ol: ({ children }) => <Box component="ol" sx={{ pl: 2 }}>{children}</Box>,
           li: ({ children }) => <Typography component="li">{children}</Typography>,
