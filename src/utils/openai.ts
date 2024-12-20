@@ -103,6 +103,49 @@ export class OpenAIService {
   async sendMessage(content: string): Promise<string> {
     if (!this.threadId) {
       this.threadId = await this.createThread();
+      const initRunResponse = await fetch(`https://api.openai.com/v1/threads/${this.threadId}/runs`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`,
+          'OpenAI-Beta': 'assistants=v2'
+        },
+        body: JSON.stringify({
+          assistant_id: this.assistantId
+        })
+      });
+
+      if (!initRunResponse.ok) {
+        const errorData = await initRunResponse.json();
+        throw new Error(`Failed to run initial assistant: ${errorData.error?.message || 'Unknown error'}`);
+      }
+
+      const initRunData = await initRunResponse.json();
+      await this.waitForCompletion(this.threadId, initRunData.id);
+    }
+
+    const runsResponse = await fetch(
+      `https://api.openai.com/v1/threads/${this.threadId}/runs`,
+      {
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'OpenAI-Beta': 'assistants=v2'
+        }
+      }
+    );
+
+    if (!runsResponse.ok) {
+      const errorData = await runsResponse.json();
+      throw new Error(`Failed to check runs: ${errorData.error?.message || 'Unknown error'}`);
+    }
+
+    const runsData = await runsResponse.json();
+    const activeRuns = runsData.data.filter((run: any) => 
+      ['queued', 'in_progress', 'requires_action'].includes(run.status)
+    );
+
+    if (activeRuns.length > 0) {
+      throw new Error('請等待上一個請求完成');
     }
 
     const response = await fetch(`https://api.openai.com/v1/threads/${this.threadId}/messages`, {
