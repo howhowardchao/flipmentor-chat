@@ -65,6 +65,20 @@ function App() {
         error: null,
       });
 
+      // 先添加一個初始化消息
+      const initMessage = {
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: '正在啟動 AI 助教，請稍候...',
+        timestamp: Date.now(),
+      };
+
+      setChatState(prev => ({
+        ...prev,
+        messages: [...prev.messages, initMessage],
+        isLoading: true,
+      }));
+
       // 添加系統歡迎訊息
       try {
         const response = await openAIService.sendMessage(
@@ -80,13 +94,19 @@ function App() {
         setChatState(prev => {
           const newState = {
             ...prev,
-            messages: [...prev.messages, welcomeMessage],
+            messages: [welcomeMessage],  // 只保留歡迎訊息
+            isLoading: false,
           };
           saveChat(newState);
           return newState;
         });
       } catch (error) {
         console.error('Error getting welcome message:', error);
+        setChatState(prev => ({
+          ...prev,
+          isLoading: false,
+          error: '初始化失敗，請重新登入',
+        }));
       }
     } catch (error) {
       setUserState(prev => ({
