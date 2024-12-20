@@ -58,19 +58,43 @@ function App() {
   // 登入處理
   const handleLogin = async (username: string, password: string) => {
     try {
-      const user = loginUser(username, password)
+      const user = loginUser(username, password);
       setUserState({
         currentUser: user,
         isLoading: false,
         error: null,
-      })
+      });
+
+      // 添加系統歡迎訊息
+      try {
+        const response = await openAIService.sendMessage(
+          "請以簡老師AI小助教的身份，介紹這門課程，並說明你可以如何協助我學習。"
+        );
+        const welcomeMessage = {
+          id: Date.now().toString(),
+          role: 'assistant',
+          content: response,
+          timestamp: Date.now(),
+        };
+
+        setChatState(prev => {
+          const newState = {
+            ...prev,
+            messages: [...prev.messages, welcomeMessage],
+          };
+          saveChat(newState);
+          return newState;
+        });
+      } catch (error) {
+        console.error('Error getting welcome message:', error);
+      }
     } catch (error) {
       setUserState(prev => ({
         ...prev,
         error: error instanceof Error ? error.message : '登入失敗',
-      }))
+      }));
     }
-  }
+  };
 
   // 註冊處理
   const handleRegister = async (credentials: RegisterCredentials) => {
@@ -82,6 +106,23 @@ function App() {
         error: null,
       })
       setShowRegister(false)
+
+      // 添加歡迎訊息
+      const welcomeMessage = {
+        id: Date.now().toString(),
+        role: 'assistant' as const,
+        content: '您好，讓我們一起進入藝遊｢雕｣與｢塑｣的世界吧！\n\n我是簡俊成老師的AI小助教，您可以叫我「簡老師AI小助教」，我已經整理了老師的"藝遊「雕」與「塑」的世界"教材，包括課本與網路上資訊。我可以輔助您進行課程學習，例如您可以詢問課本中「認識雕塑」、「宗教與象徵」、「雕塑的表現形態」、「雕塑的表現形式」、「雕塑常用的表現媒材」等與我討論，當然，您也可以依照簡老師課堂上的要求詢問我問題或進行測驗。',
+        timestamp: Date.now(),
+      }
+
+      setChatState(prev => {
+        const newState = {
+          ...prev,
+          messages: [...prev.messages, welcomeMessage],
+        }
+        saveChat(newState)
+        return newState
+      })
     } catch (error) {
       setUserState(prev => ({
         ...prev,
