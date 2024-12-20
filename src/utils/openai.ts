@@ -59,7 +59,7 @@ export class OpenAIService {
 
   private async waitForCompletion(threadId: string, runId: string): Promise<void> {
     let attempts = 0;
-    const maxAttempts = 30;
+    const maxAttempts = 15;
     
     while (attempts < maxAttempts) {
       const response = await fetch(
@@ -81,7 +81,11 @@ export class OpenAIService {
       if (data.status === 'completed') break;
       
       attempts++;
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
+    if (attempts >= maxAttempts) {
+      throw new Error('回應時間過長，請重試');
     }
   }
 
