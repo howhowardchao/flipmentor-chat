@@ -68,7 +68,7 @@ function App() {
       // 添加系統歡迎訊息
       try {
         const response = await openAIService.sendMessage(
-          "請以簡老師AI小助教的身份，介紹這門課程，並說明你可以如何協助我學習。"
+          "請依照你的System instructions中的課程引導歡迎詞來介紹這門課程。"
         );
         const welcomeMessage = {
           id: Date.now().toString(),
