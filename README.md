@@ -1,10 +1,21 @@
-# FlipMentor Chat
+# FlipMentor Chat V2
 
 一個基於 OpenAI Assistant API 的智能教學助手系統。
 
 ## 版本記錄
 
-+ ### v0.1.4 (2023-12-13)
++ ### 241219更新 API 配置 (2023-12-19)
++ - 更新 OpenAI API Key
++ - 更新 Assistant ID
++ - 測試 API 連接成功
++ - 確認 v2 API 功能正常
++ 
+### 241219初始化專案 (2023-12-19)
+- 從 TestFlipMentor 複製專案
+- 更新 OpenAI API v2 支持
+- 配置端口 4046
+
+### v0.1.4 (2023-12-13)
 + - 更新 AI 助教頭像
 + - 優化圖片資源
 + 
