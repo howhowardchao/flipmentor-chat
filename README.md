@@ -28,6 +28,36 @@
 - 基本專案結構搭建
 - 實作登入/登出功能
 
+## 開發記錄
+
+### 241215復興基本最安全版
+- 更新 OpenAI API Key 配置
+- 設置端口為 4040
+- 優化 API 調用邏輯
+- 修復安全性問題
+
+### 配置信息
+```env
+# OpenAI API Configuration
+VITE_OPENAI_API_KEY=<your_api_key>
+VITE_ASSISTANT_ID=<your_assistant_id>
+
+# Course Information
+VITE_COURSE_NAME=藝遊｢雕｣與｢塑｣的世界
+VITE_ASSISTANT_NAME=AI雕塑小助教
+
+# Application Configuration
+VITE_MAX_CHAT_WIDTH=820
+VITE_LOGIN_PASSWORD=<your_password>
+```
+
+### API 測試
+```javascript
+// test-api.js
+// 用於測試 OpenAI API 連接
+// 使用方法：node test-api.js
+```
+
 ## 功能特點
 
 - 登入系統
@@ -83,7 +113,7 @@ npm install
 ```
 
 2. 設置環境變數：
-將 `.env.example` 複製為 `.env` 並設置以下變數���
+將 `.env.example` 複製為 `.env` 並設置以下變數：
 ```env
 VITE_OPENAI_API_KEY=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
 VITE_ASSISTANT_ID=asst_kee49octQQlwut1UgSH3ZZeE
