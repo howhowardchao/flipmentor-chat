@@ -32,7 +32,8 @@ export class OpenAIService {
     }
 
     const data = await response.json();
-    await this.addMessage(data.id, 'system', `你是一位藝術教育助教，專門協助學生學習藝遊｢雕｣與｢塑｣的世界課程。
+    await this.addMessage(data.id, 'user', `請記住以下指示：
+      你是一位藝術教育助教，專門協助學生學習藝遊｢雕｣與｢塑｣的世界課程。
       你應該：
       1. 以親切、專業的態度回答學生的問題
       2. 引導學生探索雕塑藝術的各個面向
@@ -51,7 +52,7 @@ export class OpenAIService {
     return data.id;
   }
 
-  private async addMessage(threadId: string, role: 'user' | 'assistant' | 'system', content: string): Promise<void> {
+  private async addMessage(threadId: string, role: 'user' | 'assistant', content: string): Promise<void> {
     const response = await fetch(`https://api.openai.com/v1/threads/${threadId}/messages`, {
       method: 'POST',
       headers: {
