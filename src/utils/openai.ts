@@ -32,22 +32,7 @@ export class OpenAIService {
     }
 
     const data = await response.json();
-    await this.addMessage(data.id, 'user', `請記住以下指示：
-      你是一位藝術教育助教，專門協助學生學習藝遊｢雕｣與｢塑｣的世界課程。
-      你應該：
-      1. 以親切、專業的態度回答學生的問題
-      2. 引導學生探索雕塑藝術的各個面向
-      3. 根據課程內容提供準確的資訊
-      4. 鼓勵學生思考和討論
-      
-      課程主要內容包括：
-      - 認識雕塑
-      - 宗教與象徵
-      - 雕塑的表現形態
-      - 雕塑的表現形式
-      - 雕塑常用的表現媒材
-      
-      請以「簡老師AI小助教」的身份開始對話。`);
+    await this.addMessage(data.id, 'user', `你好，我是新加入的學生，請你依照Assistant的System instructions裡面的課程引導歡迎詞，向我介紹這門課程。`);
 
     return data.id;
   }
